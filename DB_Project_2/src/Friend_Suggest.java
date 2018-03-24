@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+
 /**
  * 
  */
@@ -41,8 +47,6 @@ public class Friend_Suggest {
 				i f c ∈/ F :
 					F[c] ← 0
 				F[c] ←+ UpdateScore(c, S, g)
-		*/
-		
+		*/	
 	}
-	
 }
