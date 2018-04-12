@@ -1,0 +1,32 @@
+node {
+	fill-color: grey;
+	size: 25px;
+	stroke-mode: plain;
+	stroke-color: red;
+	stroke-width: 1px;
+	//text-mode: hidden;
+}
+
+edge {
+	fill-color: green;
+	size: 1px;
+	stroke-mode: plain;
+	stroke-color: blue;
+	stroke-width: 1px;
+	shape: line;
+	fill-mode: dyn-plain;
+	fill-color: #222, #555, green, yellow;
+	arrow-size: 3px, 2px;
+}
+
+node.important {
+	fill-color: red;
+	size: 15px;
+}
+
+sprite {
+	shape: box;
+	size: 32px, 52px;
+	fill-mode: image-scaled;
+	fill-image: url('mapPinSmall.png');
+}

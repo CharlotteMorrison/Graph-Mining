@@ -28,7 +28,7 @@ public class Helper {
 
 	static void READ_CSV() {
 		try {
-			Reader in = new FileReader("datasets/6.csv");
+			Reader in = new FileReader("datasets/whalley-g.csv");
 			Iterable<CSVRecord> records = CSVFormat.RFC4180.parse(in);
 			int i=0;
 			for (CSVRecord record : records) {
