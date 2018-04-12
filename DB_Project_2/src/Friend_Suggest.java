@@ -14,6 +14,7 @@ import java.sql.ResultSetMetaData;
  * Edges in the implicit social graph have both direction and weight. 
  * One metric for computing edge weight, which we call Interactions Rank. 
  */
+
 public class Friend_Suggest {
 	Friend_Suggest()
 	{
