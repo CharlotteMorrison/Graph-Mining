@@ -1,3 +1,6 @@
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import org.graphstream.graph.Node;
@@ -19,7 +22,7 @@ public class Hyber_Graph {
 	public String recency;
 	public String Label;
 	public String Subject;
-	public float  IR_Interactions_Rank;
+	public double  IR_Interactions_Rank;
 	public Set<String> user_emails = new HashSet<String>();
 
 	public Hyber_Graph() 
@@ -42,6 +45,17 @@ public class Hyber_Graph {
 		float percent = ( intersection.size() ) / ( user_emails.size() ) * 100;
 		//System.out.println(percent);
 		return percent;
+	}
+	
+	//section 3.1 Interactions Rank
+	public void update_IR(String Date, boolean outgoing)
+	{
+		frequency++;
+	    recency = Date;
+	    double IR = Friend_Suggest.Interactions_Rank(Date);
+	    //System.out.println(IR);
+	    if(outgoing) { out_degree++; IR*=2; } else in_degree++;
+        IR_Interactions_Rank+=IR;
 	}
 	
 	public float symmetric_set_difference(Set<String> set2) 

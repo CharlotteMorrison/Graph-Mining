@@ -1,26 +1,20 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
+import java.time.format.*;
+import java.time.*;
 import java.util.*;
 
 import javax.swing.JComponent;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.csv.*;
 import org.graphstream.algorithm.Toolkit;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 import org.graphstream.stream.file.FileSinkImages;
-import org.graphstream.stream.file.FileSinkImages.LayoutPolicy;
-import org.graphstream.stream.file.FileSinkImages.OutputType;
-import org.graphstream.stream.file.FileSinkImages.Resolutions;
+import org.graphstream.stream.file.FileSinkImages.*;
 import org.graphstream.ui.geom.Point3;
-import org.graphstream.ui.spriteManager.Sprite;
-import org.graphstream.ui.spriteManager.SpriteManager;
-import org.graphstream.ui.view.View;
-import org.graphstream.ui.view.Viewer;
-import java.util.UUID;
+import org.graphstream.ui.spriteManager.*;
+import org.graphstream.ui.view.*;
+
 
 /**
  * @author Moussa
@@ -36,11 +30,9 @@ class Main {
 	
 	//static DefaultGraph graph = new DefaultGraph("greg.whalley's ego-centric graph");//Graph graph = new SingleGraph("whalley-g egocentric");
 	static MultiGraph graph = new MultiGraph("greg.whalley's ego-centric graph");//Graph graph = new SingleGraph("whalley-g egocentric");
-	
-	static ArrayList< Hyber_Graph > ego = new ArrayList<>();
-    static Map<String, Integer> map = new HashMap<String, Integer>(); //
-    
+	static ArrayList< Hyber_Graph > ego = new ArrayList< Hyber_Graph >();
 	static String user = "greg.whalley@enron.com";
+	static String seed = "chris.abel@enron.com";
 	
 	/*recency, frequency
 	metric to compute edge weight from above as  Interactions Rank. 
@@ -54,13 +46,6 @@ class Main {
 		graph.setStrict( false );
 		graph.setAutoCreate( true );
 		graph.addAttribute( "ui.stylesheet", "url('file:style/style.css')" );
-		
-		//map.put("foo", new Integer(3));
-		if(map.containsKey("foo") == true)
-		{
-			int i = map.get("foo").intValue();
-		}
-
 		go();
 	}
 	
@@ -111,51 +96,45 @@ class Main {
 		for (CSVRecord record : records) 
 		{           //if(i++ > 50) break; 
 		
-					System.out.println();
+					//System.out.println();
 					
 					String Date = record.get(2);
 					//System.out.println(Date);
 					
 					String From = record.get(3).replace("frozenset({", "").replace("})", "").replace("'", "");
-					System.out.println(From);
+					//System.out.println(From);
 					
 					String To = record.get(4).replace("frozenset({", "").replace("})", "").replace("'", "");
-					System.out.println(To);
+					//System.out.println(To);
 					
 					String Subject = record.get(5).replaceAll("FW:", "").replaceAll("RE:", "").replaceAll("Re:", "").trim();
-					System.out.println(Subject);
+					//System.out.println(Subject);
 					
 				    int idx = find_or_add( Date, From, To, Subject );
-				    
 				    String id = String.valueOf(idx);
-				    ego.get(idx).frequency++;
-				    ego.get(idx).recency = Date;
-				    String frq = String.valueOf( ego.get(idx).frequency );
-				    
+				    Hyber_Graph h = ego.get(idx);
+				   
 				    Edge e;//= graph.getEdge("edge_id");
 				    
 					if(From.equalsIgnoreCase(user)) //form outgoing edge for sent msgs
 					{
 						e = graph.addEdge(UUID.randomUUID().toString(), user, id , true); 
-						ego.get(idx).out_degree++;
+						h.update_IR(Date, true);
 					}
+					else
 					{   //form incomming edge for received msgs
-					    e = graph.addEdge(UUID.randomUUID().toString(), id, user, true);  
-					    ego.get(idx).in_degree++;
+					    e = graph.addEdge(UUID.randomUUID().toString(), id, user, true); 
+					    h.update_IR(Date, false);
 					}
 					
-					if(e != null)
-						e.setAttribute("ui.label", frq); //update to score
-					else
-						System.out.println("NULL= " + id);
+					String frq = String.valueOf( h.frequency );
+					e.setAttribute("ui.label", frq ); //update to score
 					
 				    //sleep();
 					//e.setAttribute("W", "1");
 					//e.setAttribute("Subject", Subject);
 					//e.setAttribute("Date", Date);
-					
-					//e.setAttribute("W", "1");
-				   //user.convert_to_set(To);
+				    //user.convert_to_set(To);
 		}
 		
 		show_emails_as_labels();
@@ -168,7 +147,11 @@ class Main {
         view.getCamera().setViewCenter(0, 0.5, 0);
         view.getCamera().setViewPercent(0.1);
         */
-		System.out.println("Size=" + ego.size());
+		System.out.println("Egocentric graph Size = " + ego.size());
+		
+		System.out.println("\nFriend Suggestions for user: " + user + " Using seed: " + seed + ": \n");
+		
+		Friend_Suggest.ExpandSeed(ego, seed);
 	}
 
 	/**
