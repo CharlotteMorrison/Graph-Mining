@@ -27,6 +27,11 @@ public class Friend_Suggest {
 		
 	}
 	
+	void  Interactions_Rank()
+	{
+		
+	}
+	
 	void user_egocentric_network()
 	{
 		

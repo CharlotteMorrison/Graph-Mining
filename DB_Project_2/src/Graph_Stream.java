@@ -1,9 +1,13 @@
 import java.io.IOException;
 import java.util.*;
 
+import org.graphstream.algorithm.Toolkit;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 import org.graphstream.stream.file.*;
+import org.graphstream.ui.geom.Point3;
+import org.graphstream.ui.spriteManager.Sprite;
+import org.graphstream.ui.spriteManager.SpriteManager;
 
 
 public class Graph_Stream {
@@ -78,4 +82,22 @@ public class Graph_Stream {
 			dgs.removeSink(graph);
 		}
 	}
+	
+	/**
+	 * @param graph
+	 */
+	public static void Sprite(DefaultGraph graph) 
+	{
+		SpriteManager sman = new SpriteManager(graph);
+		Sprite s1 = sman.addSprite("S1");
+		Sprite s2 = sman.addSprite("S2");
+		  
+		Node n1 = graph.getNode(1);
+		Node n2 = graph.getNode(10);
+		Point3 p1 = Toolkit.nodePointPosition(n1);
+		Point3 p2 = Toolkit.nodePointPosition(n2);
+		s1.setPosition(p1.x, p1.y, p1.z);
+		s2.setPosition(p2.x, p2.y, p2.z);
+	}
+	
 }

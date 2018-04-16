@@ -43,6 +43,17 @@ public class Helper {
 		}
 	}
 
+	
+	void steps()
+	{
+		//1. Read Dataset [CSV format]
+		Helper.READ_CSV();
+		
+		//2. Create Graph
+		(new Graph_Stream()).Pajek();
+	}
+	
+	
 	static void process_csv() {
 		String csv_file = "datasets/6.csv";
 		String split_by = ",";
