@@ -16,10 +16,6 @@ import org.graphstream.ui.spriteManager.*;
 import org.graphstream.ui.view.*;
 
 
-/**
- * @author Moussa
- *
- */
 class Main {
 
 	/**
@@ -162,6 +158,7 @@ class Main {
 			if( node.getId().equals("greg.whalley@enron.com") == false )
 		{
 			node.addAttribute("ui.label", node.getId() + ":" + ego.get( Integer.parseInt(node.getId() ) ).user_emails.size());
+			node.addAttribute("ui.label", node.getId() + ":" + ego.get( Integer.parseInt(node.getId() ) ).get_label());
 			//node.addAttribute( "ui.label", ego.get( Integer.parseInt(node.getId() ) ).get_label() );
 			//node.addAttribute("ui.label", node.getIndex());
 			//node.addAttribute("ui.style", "fill-color: rgb(250,100,25);");

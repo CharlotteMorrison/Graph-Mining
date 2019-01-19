@@ -5,14 +5,7 @@ import java.util.*;
 
 import org.graphstream.graph.Node;
 
-/**
- * 
- */
 
-/**
- * @author Moussa
- *
- */
 public class Hyber_Graph {
 
 	public int ID;

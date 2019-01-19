@@ -24,13 +24,9 @@ import java.util.TreeMap;
 
 import org.graphstream.graph.implementations.*;
 
-/**
- * 
- */
 
 /**
  * Friend Suggest algorithm
- * @author Moussa
  * Edges in the implicit social graph have both direction and weight. 
  * One metric for computing edge weight, which we call Interactions Rank. 
  */
@@ -41,7 +37,7 @@ public class Friend_Suggest {
 		
 	}
 	
-	//user’s egocentric network
+	//userâ€™s egocentric network
 	void hypergraph()
 	{
 		
@@ -71,8 +67,8 @@ public class Friend_Suggest {
 		returns: F, the friend suggestions
 		*/
 		
-		/*//Core algorithm for suggesting contacts that expand a particular seed, given a user’s contact groups
-		G ← GetGroups(u) F ← ∅
+		/*//Core algorithm for suggesting contacts that expand a particular seed, given a userâ€™s contact groups
+		G â†� GetGroups(u) F â†� âˆ…
 		*/
 		
 		HashMap<String, Double> F = new HashMap<String, Double>();
@@ -113,7 +109,7 @@ public class Friend_Suggest {
 		/*
 		input: c, a single contact
 		S, the seed being expanded
-		g, a single contact group returns: g’s contribution to c’s score
+		g, a single contact group returns: gâ€™s contribution to câ€™s score
 		*/
 		if ( G.user_emails.contains(seed) )
 			return G.IR_Interactions_Rank;
